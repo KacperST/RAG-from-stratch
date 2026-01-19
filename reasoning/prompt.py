@@ -1,5 +1,8 @@
 import json
 import ollama
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 def create_prompt(context_list, query):
     context = "\n\n".join(context_list)
@@ -35,7 +38,7 @@ def decompose_query_llm(user_input, call_llm_func):
         return {"sub_questions": [user_input]}
     
 def call_llm(prompt):
-    OLLAMA_HOST = "localhost:11435"
+    OLLAMA_HOST = os.getenv('OLLAMA_HOST', 'localhost:11435')
     ollama_client = ollama.Client(host=OLLAMA_HOST) 
     response = ollama_client.generate(model="llama3.1:8b", prompt=prompt)
     return response.get("response", "")
