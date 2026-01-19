@@ -45,14 +45,11 @@ Ollama (z modelem llama3.1:8b)
 Python 3.10+
 
 Uruchomienie baz danych:
+```
+bash start-script.sh
+```
 
-Bash
-
-docker run -p 9200:9200 -e "discovery.type=single-node" elasticsearch:8.x
-docker run -p 6333:6333 qdrant/qdrant
-Inicjalizacja danych: W notebooku lub skrypcie uruchom proces indeksowania:
-
-Python
+## Przykład użycia
 
 from rag.retrieval.indexing import prepare_data_from_ndjson
 id_maps = prepare_data_from_ndjson("your_dataset.ndjson")
