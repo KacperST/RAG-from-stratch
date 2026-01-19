@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # Twój istniejący ElasticSearch (budowany z Dockerfile)
+  elasticsearch:
+    build: .  # Zakładam, że Twój Dockerfile jest w tym samym folderze
+    container_name: es_nlp_lab
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ports:
+      - "9200:9200"
+
+  # Qdrant - oficjalny obraz
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant_nlp_lab
+    ports:
+      - "6333:6333"  
+      - "6334:6334"  
+    volumes:
+      - ./qdrant_storage:/qdrant/storage:z  # Żeby nie stracić danych po restarcie
